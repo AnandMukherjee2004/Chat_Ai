@@ -8,10 +8,11 @@ function App() {
   const [res, setRes] = useState("");
 
   let getAns = async () => {
-    console.log("loading...");
     let response = await axios({
       method: "POST",
-      url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyB09Hr5EvHx2Ne3E_1G0toC8MOfklNCiM8",
+      url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${
+        import.meta.env.VITE_API_KEY
+      }`,
       data: { contents: [{ parts: [{ text: question }] }] },
     });
 
