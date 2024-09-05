@@ -27,6 +27,7 @@ function App() {
         <input
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
+          placeholder="Ask me anything..."
           className=" px-5 py-3 text-left text-pretty border-black border-2 rounded-lg w-[50vw] h-12 mr-3"
         ></input>
         <Button
