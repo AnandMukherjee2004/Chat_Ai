@@ -1,47 +1,33 @@
-import { useState } from "react";
-import axios from "axios";
 import "./App.css";
 import { Button } from "@mui/material";
+import Sidebar from "./Components/Sidebar";
+import Nav from "./Components/Nav";
+import Content from "./Components/Content";
+import Textbar from "./Components/Textbar";
+import DataContextProvider from "./Context/DataContextProvider";
+import Footer from "./Components/Footer";
 
 function App() {
-  const [question, setQuestion] = useState("");
-  const [res, setRes] = useState("");
-
-  let getAns = async () => {
-    let response = await axios({
-      method: "POST",
-      url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${
-        import.meta.env.VITE_API_KEY
-      }`,
-      data: { contents: [{ parts: [{ text: question }] }] },
-    });
-
-    setRes(response.data.candidates[0].content.parts[0].text);
+  let getData = (data) => {
+    console.log(data);
+    return data;
   };
 
   return (
-    <div className="">
-      <h1 className=" font-semibold text-4xl mb-2">Chat Bot</h1>
+    <DataContextProvider>
+      <div className="App">
+        <div className=" flex w-[100vw]">
+          <Sidebar />
+          <div className="main w-full items-center justify-between flex flex-col h-[100vh] bg-[#121315]">
+            <Nav />
 
-      <div className=" flex text-center justify-center items-center mb-4">
-        <input
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          placeholder="Ask me anything..."
-          className=" px-5 py-3 text-left text-pretty border-black border-2 rounded-lg w-[50vw] h-12 mr-3"
-        ></input>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={getAns}
-          className=" h-12 w-24 mt-0 "
-        >
-          Send
-        </Button>
+            <Content />
+
+            <Footer />
+          </div>
+        </div>
       </div>
-
-      <p className=" text-left w-[80%]"> {res}</p>
-    </div>
+    </DataContextProvider>
   );
 }
 
